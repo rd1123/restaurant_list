@@ -4,7 +4,7 @@
 ## 功能
 + 1.簡易列出餐廳清單
 
-##相關安裝
+## 相關安裝
 1. 開啟terminal(終端機)，開啟作業目錄下執行：
 ```
 git clone https://github.com/rd1123/restaurant_list.git
