@@ -1,0 +1,81 @@
+<h1 class="mb-1 restaurant-show-title">編輯餐廳</h1>
+
+<div class="container">
+  <form action="/restaurants/{{restaurant._id}}/edit" method="POST" class="mb-5">
+    <div class="input-group mb-3 row">
+      <div class="input-group-prepend col-4">
+        <span class="input-group-text col-12" id="inputGroup-sizing-default">Restaurant Name</span>
+      </div>
+      <input type="text" class="form-control" name="name" placeholder="plaease Enter Restaurant Name"
+        aria-describedby="inputGroup-sizing-default" value="{{restaurant.name}}" required>
+    </div>
+
+    <div class="input-group mb-3 row">
+      <div class="input-group-prepend col-4">
+        <span class="input-group-text col-12" id="inputGroup-sizing-default">En Restaurant Name</span>
+      </div>
+      <input type="text" class="form-control" name="name_en" placeholder="plaease Enter En Restaurant Name"
+        aria-describedby="inputGroup-sizing-default" value="{{restaurant.name_en}}" required>
+    </div>
+
+    <div class="input-group mb-3 row">
+      <div class="input-group-prepend col-4">
+        <span class="input-group-text col-12" id="inputGroup-sizing-default">Category</span>
+      </div>
+      <input type="text" class="form-control" name="category" placeholder="plaease Enter restaurant category"
+        aria-describedby="inputGroup-sizing-default" value="{{restaurant.category}}" required>
+    </div>
+
+    <div class="input-group mb-3 row">
+      <div class="input-group-prepend col-4">
+        <span class="input-group-text col-12" id="inputGroup-sizing-default">Image</span>
+      </div>
+
+      <input type="text" class="form-control" name="image" placeholder="image://"
+        aria-describedby="inputGroup-sizing-default" value="{{restaurant.image}}" required>
+    </div>
+
+    <div class="input-group mb-3 row">
+      <div class="input-group-prepend col-4">
+        <span class="input-group-text col-12" id="inputGroup-sizing-default">Location</span>
+      </div>
+      <input type="text" class="form-control" name="location" placeholder="location"
+        aria-describedby="inputGroup-sizing-default" value="{{restaurant.location}}" required>
+    </div>
+
+    <div class="input-group mb-3 row">
+      <div class="input-group-prepend col-4">
+        <span class="input-group-text col-12" id="inputGroup-sizing-default">Phone</span>
+      </div>
+      <input type="text" class="form-control" name="phone" placeholder="Phone"
+        aria-describedby="inputGroup-sizing-default" value="{{restaurant.phone}}" required>
+    </div>
+
+    <div class="input-group mb-3 row">
+      <div class="input-group-prepend col-4">
+        <span class="input-group-text col-12" id="inputGroup-sizing-default">Google map</span>
+      </div>
+      <input type="text" class="form-control" name="google_map" placeholder="Google map"
+        aria-describedby="inputGroup-sizing-default" value="{{restaurant.google_map}}" required>
+    </div>
+
+    <div class="input-group mb-3 row">
+      <div class="input-group-prepend col-4">
+        <span class="input-group-text col-12" id="inputGroup-sizing-default">Rating</span>
+      </div>
+      <input type="number" class="form-control" name="rating" placeholder="0" min="0.1" max="5" step="0.1"
+        aria-describedby="inputGroup-sizing-default" value="{{restaurant.rating}}" required>
+    </div>
+
+    <div class="input-group mb-3 row">
+      <div class="input-group-prepend col-4">
+        <span class="input-group-text col-12" id="inputGroup-sizing-default">Description</span>
+      </div>
+      <input type="text" class="form-control" name="description" placeholder="Description"
+        aria-describedby="inputGroup-sizing-default" value="{{restaurant.description}}" required>
+    </div>
+
+    <button type="submit" class="btn btn-secondary">Done</button>
+    <a href="/" class="btn btn-danger ml-2">Cancel</a>
+  </form>
+</div>
