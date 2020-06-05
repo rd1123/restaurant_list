@@ -9,7 +9,7 @@ const app = express()
 
 // use static
 app.use(express.static('public'))
-
+app.use(express.urlencoded({ extended: true }))
 // set engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
@@ -55,13 +55,33 @@ app.get('/restaurants/new', (req, res) => {
 
 ////// 新增一筆餐廳
 app.post('/restaurants', (req, res) => {
-  res.render('/')
+  const restaurant = new Restaurant({
+    name: req.body.name,
+    name_en: req.body.name_en,
+    category: req.body.category,
+    image: req.body.image,
+    location: req.body.location,
+    phone: req.body.phone,
+    google_map: req.body.google_map,
+    rating: req.body.rating,
+    description: req.body.description
+  })
+
+  restaurant.save(err => {
+    if (err) return console.log(err)
+    res.redirect('/')
+  })
 })
 
 ////// 顯示餐廳詳細資料
 app.get('/restaurants/:id', (req, res) => {
-  const restaurant = restaurants.find(item => item.id.toString() === req.params.id)
-  res.render('show', { restaurant })
+  console.log(req.params.id)
+  Restaurant.findById(req.params.id)
+    .lean()
+    .exec((err, restaurant) => {
+      if (err) return console.log(err)
+      return res.render('show', { restaurant })
+    })
 })
 ////// 修改餐廳資料頁面
 app.get('/restaurants/:id/edit', (req, res) => {
