@@ -1,7 +1,8 @@
 // require
 const express = require('express')
-const restaurantList = require('./restaurant.json').results
+// const restaurantList = require('./restaurant.json').results
 const exphbs = require('express-handlebars')
+const mongoose = require('mongoose')
 
 // use express
 const app = express()
@@ -16,10 +17,31 @@ app.set('view engine', 'handlebars')
 // set port
 const port = 3000
 
+// set mongoose
+mongoose.connect('mongodb://127.0.0.1/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
+
+const db = mongoose.connection
+
+db.on('error', () => {
+  console.log('db error')
+})
+
+db.once('open', () => {
+  console.log('db connect!')
+})
+
+// require model
+const Restaurant = require('./models/restaurantModel')
+
 // set route
 ////// 首頁
 app.get('/', (req, res) => {
-  res.render('index', { restaurantList })
+  Restaurant.find()
+    .lean()
+    .exec((err, restaurants) => {
+      if (err) return console.log(err)
+      return res.render('index', { restaurants })
+    })
 })
 
 ////// 列出全部的餐廳
@@ -38,7 +60,7 @@ app.post('/restaurants', (req, res) => {
 
 ////// 顯示餐廳詳細資料
 app.get('/restaurants/:id', (req, res) => {
-  const restaurant = restaurantList.find(item => item.id.toString() === req.params.id)
+  const restaurant = restaurants.find(item => item.id.toString() === req.params.id)
   res.render('show', { restaurant })
 })
 ////// 修改餐廳資料頁面
