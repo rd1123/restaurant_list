@@ -30,6 +30,14 @@
         {{restaurant.phone}}
       </p>
 
+      <p class="mb-1">
+        <span class="text-secondary">
+          <i class="fas fa-star fa-xs pr-2"></i>
+          評價：
+        </span>
+        {{restaurant.rating}}
+      </p>
+
       <p class="mb-5">
         {{restaurant.description}}
       </p>
@@ -43,11 +51,11 @@
     <a href="/" class="btn btn-secondary my-3">Home</a>
     <a href="/restaurants/{{restaurant._id}}/edit" class="btn btn-secondary">Edit</a>
     <button type="submit" class="btn btn-danger" data-toggle="modal"
-      data-target="#trigger-deleteItem-{{restaurant.id}}">Delete</button>
+      data-target="#trigger-deleteItem-{{restaurant._id}}">Delete</button>
   </div>
 
 
-  <div class="modal fade" id="trigger-deleteItem-{{restaurant.id}}" tabindex="-1" role="dialog"
+  <div class="modal fade" id="trigger-deleteItem-{{restaurant._id}}" tabindex="-1" role="dialog"
     aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -62,7 +70,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <form action="/restaurants/{{restaurant.id}}/delete?_method=DELETE" method="POST" style="display: inline;">
+          <form action="/restaurants/{{restaurant._id}}/delete" method="POST" style="display: inline;">
             <button type="submit" class="btn btn-danger">Delete</button>
           </form>
         </div>
