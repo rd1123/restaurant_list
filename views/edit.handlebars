@@ -1,7 +1,7 @@
 <h1 class="mb-1 restaurant-show-title">編輯餐廳</h1>
 
 <div class="container">
-  <form action="/restaurants/{{restaurant._id}}/edit" method="POST" class="mb-5">
+  <form action="/restaurants/{{restaurant._id}}?_method=PUT" method="POST" class="mb-5">
     <div class="input-group mb-3 row">
       <div class="input-group-prepend col-4">
         <span class="input-group-text col-12" id="inputGroup-sizing-default">Restaurant Name</span>

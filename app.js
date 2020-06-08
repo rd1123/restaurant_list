@@ -3,6 +3,7 @@ const express = require('express')
 // const restaurantList = require('./restaurant.json').results
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
+const methodOverride = require('method-override')
 
 // use express
 const app = express()
@@ -10,6 +11,9 @@ const app = express()
 // use static
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
+//////use method-override middleware
+app.use(methodOverride('_method'))
+
 // set engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
@@ -93,7 +97,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
 })
 
 ////// 修改餐廳資料
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.log(err)
     restaurant.name = req.body.name
@@ -113,7 +117,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 ////// 刪除餐廳資料
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.log(err)
     restaurant.remove(err => {
