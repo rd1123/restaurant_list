@@ -1,19 +1,21 @@
 const express = require('express')
 const router = express.Router()
 const Restaurant = require('../models/restaurantModel')
-
+const userForSort = require('../libs/userForSort')
 
 router.get('/', (req, res) => {
   const keyword = req.query.keyword
+  const sortObject = userForSort(req.query)
 
   Restaurant.find()
+    .sort(sortObject)
     .lean()
     .exec((err, restaurantList) => {
       if (err) return console.log(err)
       const restaurants = restaurantList.filter(({ name, category }) => {
         return name.toLowerCase().includes(keyword) || category.toLowerCase().includes(keyword)
       })
-      res.render('index', { restaurants, keyword })
+      res.render('index', { restaurants, keyword, sortName: Object.keys(sortObject), sort: Object.values(sortObject) })
     })
 })
 
