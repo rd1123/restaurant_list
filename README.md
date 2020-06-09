@@ -3,11 +3,13 @@
 
 ## 更新
 2020.06.05 新增CRUD功能，並使用MongoDB連接資料庫
+2020.06.09 新增sort功能
 
 ## 功能
 + 1.首頁新增Create按鈕，可新增一筆餐廳名單
 + 2.可在首頁、詳細內容頁中點選Edit進行資料修改
 + 3.可在首頁、詳細內容頁中點選Delete進行資料刪除
++ 4.首頁新增排序功能可針對欄位或搜尋，遞增遞減排序
 
 ## 相關安裝
 1. 開啟terminal(終端機)，開啟作業目錄下執行：
@@ -56,3 +58,4 @@ mongodb connect!
 + [Express-Handlebars](https://www.npmjs.com/package/express-handlebars) -使用模板引擎
 + [MongoDB](https://www.mongodb.com/) -資料庫
 + [Mongoose](https://www.npmjs.com/package/mongoose) -MongoDB ODM
++ [method-override](https://www.npmjs.com/package/method-override)-middleware
