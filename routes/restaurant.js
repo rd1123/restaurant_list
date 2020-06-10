@@ -1,17 +1,18 @@
 const express = require('express')
 const router = express.Router()
 const Restaurant = require('../models/restaurantModel')
+const { authenticated } = require('../config/auth')
 
-router.get('/', (req, res) => {
+router.get('/', authenticated, (req, res) => {
   res.redirect('/')
 })
 
-router.get('/new', (req, res) => {
+router.get('/new', authenticated, (req, res) => {
   res.render('new')
 })
 
 ////// 新增一筆餐廳
-router.post('/', (req, res) => {
+router.post('/', authenticated, (req, res) => {
   const restaurant = new Restaurant({
     name: req.body.name,
     name_en: req.body.name_en,
@@ -31,7 +32,7 @@ router.post('/', (req, res) => {
 })
 
 ////// 顯示餐廳詳細資料
-router.get('/:id', (req, res) => {
+router.get('/:id', authenticated, (req, res) => {
   Restaurant.findById(req.params.id)
     .lean()
     .exec((err, restaurant) => {
@@ -40,7 +41,7 @@ router.get('/:id', (req, res) => {
     })
 })
 ////// 修改餐廳資料頁面
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', authenticated, (req, res) => {
   Restaurant.findById(req.params.id)
     .lean()
     .exec((err, restaurant) => {
@@ -49,7 +50,7 @@ router.get('/:id/edit', (req, res) => {
 })
 
 ////// 修改餐廳資料
-router.put('/:id', (req, res) => {
+router.put('/:id', authenticated, (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.log(err)
     restaurant.name = req.body.name
@@ -69,7 +70,7 @@ router.put('/:id', (req, res) => {
 })
 
 ////// 刪除餐廳資料
-router.delete('/:id', (req, res) => {
+router.delete('/:id', authenticated, (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.log(err)
     restaurant.remove(err => {

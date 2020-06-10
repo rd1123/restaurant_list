@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 const Restaurant = require('../models/restaurantModel')
 const userForSort = require('../libs/userForSort')
+const { authenticated } = require('../config/auth')
 
-
-router.get('/', (req, res) => {
+router.get('/', authenticated, (req, res) => {
   const { sortName, sort } = userForSort(req.query)
 
   Restaurant.find()
