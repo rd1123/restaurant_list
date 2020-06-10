@@ -39,7 +39,7 @@ const Restaurant = require('./models/restaurantModel')
 app.use('/', require('./routes/home'))
 app.use('/restaurants', require('./routes/restaurant'))
 app.use('/search', require('./routes/search'))
-
+app.use('/users', require('./routes/user'))
 
 // start server
 app.listen(port, () => {
