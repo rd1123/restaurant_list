@@ -1,22 +1,40 @@
 const mongoose = require('mongoose')
 const Restaurant = require('../restaurantModel')
+const User = require('../user')
 const restaurantList = require('../../restaurant.json').results
+const userList = [{ email: 'user1@example.com', password: '12345678' }, { email: 'user2@example.com', password: '12345678' }]
+const bcrypt = require('bcryptjs')
 
-// db connect
-mongoose.connect('mongodb://127.0.0.1/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
+
+
+mongoose.connect('mongodb://127.0.0.1/restaurant', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
 const db = mongoose.connection
-
 db.on('error', () => {
-  console.log('db error')
+  console.log('db connect error')
 })
 
 db.once('open', () => {
   console.log('db connect!')
+  let index = 0
+  for (let i = 0; i < userList.length; i++) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(userList[i].password, salt, (err, hash) => {
+        userList[i].password = hash
 
-  for (let item in restaurantList) {
-    Restaurant.create(restaurantList[item])
+        User.create(userList[i]).then(user => {
+          let count = 0
+          for (let x = index; x < restaurantList.length; x++) {
+            restaurantList[i].userId = user._id
+            Restaurant.create(restaurantList[i])
+
+            count++
+            index = i + 1
+            if (count === 3) break
+          }
+        })
+      })
+    })
   }
-
   console.log('done')
 })

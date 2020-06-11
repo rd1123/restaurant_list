@@ -23,7 +23,7 @@ router.get('/register', (req, res) => {
 router.post('/register', (req, res) => {
   const { name, email, password, password2 } = req.body
   const errors = []
-  if (!name || !email || !password || !password2) {
+  if (!email || !password || !password2) {
     errors.push({ message: '以下皆為必填欄位' })
   }
   if (password !== password2) {
@@ -36,7 +36,8 @@ router.post('/register', (req, res) => {
       name,
       email,
       password,
-      password2
+      password2,
+      layout: 'user'
     })
   } else {
     User.findOne({ email: email })
