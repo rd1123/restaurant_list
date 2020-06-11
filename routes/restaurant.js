@@ -22,7 +22,8 @@ router.post('/', authenticated, (req, res) => {
     phone: req.body.phone,
     google_map: req.body.google_map,
     rating: req.body.rating,
-    description: req.body.description
+    description: req.body.description,
+    userId: req.user._id
   })
 
   restaurant.save(err => {
@@ -33,7 +34,7 @@ router.post('/', authenticated, (req, res) => {
 
 ////// 顯示餐廳詳細資料
 router.get('/:id', authenticated, (req, res) => {
-  Restaurant.findById(req.params.id)
+  Restaurant.findOne({ _id: req.params.id, userId: req.user._id })
     .lean()
     .exec((err, restaurant) => {
       if (err) return console.log(err)
@@ -42,7 +43,7 @@ router.get('/:id', authenticated, (req, res) => {
 })
 ////// 修改餐廳資料頁面
 router.get('/:id/edit', authenticated, (req, res) => {
-  Restaurant.findById(req.params.id)
+  Restaurant.findOne({ _id: req.params.id, userId: req.user._id })
     .lean()
     .exec((err, restaurant) => {
       res.render('edit', { restaurant })
@@ -51,7 +52,7 @@ router.get('/:id/edit', authenticated, (req, res) => {
 
 ////// 修改餐廳資料
 router.put('/:id', authenticated, (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+  Restaurant.findOne({ _id: req.params.id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.log(err)
     restaurant.name = req.body.name
     restaurant.name_en = req.body.name_en
@@ -71,7 +72,7 @@ router.put('/:id', authenticated, (req, res) => {
 
 ////// 刪除餐廳資料
 router.delete('/:id', authenticated, (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+  Restaurant.findOne({ _id: req.params.id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.log(err)
     restaurant.remove(err => {
       if (err) return console.log(err)
