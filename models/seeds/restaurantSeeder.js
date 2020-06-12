@@ -25,11 +25,11 @@ db.once('open', () => {
         User.create(userList[i]).then(user => {
           let count = 0
           for (let x = index; x < restaurantList.length; x++) {
-            restaurantList[i].userId = user._id
-            Restaurant.create(restaurantList[i])
+            restaurantList[x].userId = user._id
+            Restaurant.create(restaurantList[x])
 
             count++
-            index = i + 1
+            index = x + 1
             if (count === 3) break
           }
         })
