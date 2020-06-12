@@ -48,7 +48,6 @@ db.once('open', () => {
 
 require('./config/passport')(passport)
 app.use((req, res, next) => {
-  console.log(req.user)
   res.locals.user = req.user
   res.locals.isAuthenticated = req.isAuthenticated
   res.locals.success_msg = req.flash('success_msg')
